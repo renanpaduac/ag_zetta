@@ -11,6 +11,7 @@ import br.com.projeto.model.Util;
 import br.com.projeto.model.modelCargos;
 import br.com.projeto.model.modelPerfis;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -274,6 +275,10 @@ public class FrmPerfil extends javax.swing.JFrame {
 
     private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
         //BOTÃO SALVAR PERFIL
+        if (txtnomeperfil.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo NOME PERFIL é Obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         try {
             modelPerfis obj = new modelPerfis();
 
@@ -291,6 +296,10 @@ public class FrmPerfil extends javax.swing.JFrame {
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
         //BOTÃO EDITAR PERFIL
+        if (txtnomeperfil.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo NOME PERFIL é Obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         try {
             modelPerfis obj = new modelPerfis();
 
@@ -364,7 +373,7 @@ public class FrmPerfil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnpesquisar1ActionPerformed
 
     private void tabelaperfisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaperfisMouseClicked
-    // CLICAR E IR PARA OUTRA ABA DO PAINEL
+        // CLICAR E IR PARA OUTRA ABA DO PAINEL
         painelgeral1.setSelectedIndex(0);
         txtidperfil.setText(tabelaperfis.getValueAt(tabelaperfis.getSelectedRow(), 0).toString());
         txtnomeperfil.setText(tabelaperfis.getValueAt(tabelaperfis.getSelectedRow(), 1).toString());

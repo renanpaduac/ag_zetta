@@ -19,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -386,20 +387,33 @@ public class FrmUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnlimparActionPerformed
 
     private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
-        //BOTÃO SALVAR USUARIO  
+        //BOTÃO SALVAR USUARIO
+
+        if (txtnomeusu.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo Nome é Obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (txtcpfusu.getText().equals("   .   .   -  ")) {
+            JOptionPane.showMessageDialog(null, "Campo CPF é Obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (cbcargo.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo CARGO é Obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         try {
             modelUsuarios obj = new modelUsuarios();
 
             obj.setNome(txtnomeusu.getText());
             obj.setCpf(txtcpfusu.getText());
             obj.setData_nasc(txtdatanusu.getText());
-            obj.setSexo((String)cbsexo.getSelectedItem());
-            
+            obj.setSexo((String) cbsexo.getSelectedItem());
+
             //CRIAR OBJETO DE CARGO
             modelCargos c = new modelCargos();
             c = (modelCargos) cbcargo.getSelectedItem();
             obj.setCargo(c);
-            
+
             //CRIAR OBJETO DE PERFIL
             modelPerfis p = new modelPerfis();
             p = (modelPerfis) cbperfil.getSelectedItem();
@@ -416,20 +430,33 @@ public class FrmUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsalvarActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
-        //BOTÃO EDITAR USUARIO  
+        //BOTÃO EDITAR USUARIO
+        
+        if (txtnomeusu.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo Nome é Obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (txtcpfusu.getText().equals("   .   .   -  ")) {
+            JOptionPane.showMessageDialog(null, "Campo CPF é Obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (cbcargo.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo CARGO é Obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         try {
             modelUsuarios obj = new modelUsuarios();
 
             obj.setNome(txtnomeusu.getText());
             obj.setCpf(txtcpfusu.getText());
             obj.setData_nasc(txtdatanusu.getText());
-            obj.setSexo((String)cbsexo.getSelectedItem());
-            
+            obj.setSexo((String) cbsexo.getSelectedItem());
+
             //CRIAR OBJETO DE CARGO
             modelCargos c = new modelCargos();
             c = (modelCargos) cbcargo.getSelectedItem();
             obj.setCargo(c);
-            
+
             //CRIAR OBJETO DE PERFIL
             modelPerfis p = new modelPerfis();
             p = (modelPerfis) cbperfil.getSelectedItem();
@@ -495,10 +522,10 @@ public class FrmUsuario extends javax.swing.JFrame {
         List<modelUsuarios> lista = dao.listarUsuariosPorNome(nome);
         DefaultTableModel dados = (DefaultTableModel) tabelausuarios.getModel();
         dados.setNumRows(0);
-        
+
         for (modelUsuarios u : lista) {
 
-            dados.addRow(new Object[]{ 
+            dados.addRow(new Object[]{
                 u.getId(),
                 u.getNome(),
                 u.getCpf(),
@@ -512,22 +539,22 @@ public class FrmUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnpesquisar1ActionPerformed
 
     private void tabelausuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelausuariosMouseClicked
-    // CLICAR E IR PARA OUTRA ABA DO PAINEL
+        // CLICAR E IR PARA OUTRA ABA DO PAINEL
         painelgeral1.setSelectedIndex(0);
-        
+
         txtidusu.setText(tabelausuarios.getValueAt(tabelausuarios.getSelectedRow(), 0).toString());
         txtnomeusu.setText(tabelausuarios.getValueAt(tabelausuarios.getSelectedRow(), 1).toString());
         txtcpfusu.setText(tabelausuarios.getValueAt(tabelausuarios.getSelectedRow(), 2).toString());
         txtdatanusu.setText(tabelausuarios.getValueAt(tabelausuarios.getSelectedRow(), 3).toString());
 
         cbsexo.setSelectedItem(tabelausuarios.getValueAt(tabelausuarios.getSelectedRow(), 4).toString());
-        
+
         modelCargos c = new modelCargos();
         CargosDAO dao = new CargosDAO();
         c = (modelCargos) dao.buscaCargoPorNome(tabelausuarios.getValueAt(tabelausuarios.getSelectedRow(), 5).toString());
         cbcargo.removeAllItems();
         cbcargo.getModel().setSelectedItem(c);
-        
+
         modelPerfis p = new modelPerfis();
         PerfisDAO daop = new PerfisDAO();
         p = (modelPerfis) daop.buscaPerfilPorNome(tabelausuarios.getValueAt(tabelausuarios.getSelectedRow(), 6).toString());

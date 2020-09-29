@@ -9,6 +9,7 @@ import br.com.projeto.dao.CargosDAO;
 import br.com.projeto.model.Util;
 import br.com.projeto.model.modelCargos;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -284,6 +285,11 @@ public class FrmCargo extends javax.swing.JFrame {
 
     private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
         //BOTÃO SALVAR CARGO
+
+        if (txtnomecargo.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo NOME CARGO é Obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         try {
             modelCargos obj = new modelCargos();
 
@@ -301,6 +307,10 @@ public class FrmCargo extends javax.swing.JFrame {
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
         //BOTÃO EDITAR CARGO
+        if (txtnomecargo.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo NOME CARGO é Obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         try {
             modelCargos obj = new modelCargos();
 
@@ -374,7 +384,7 @@ public class FrmCargo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnpesquisar1ActionPerformed
 
     private void tabelacargosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelacargosMouseClicked
-    // CLICAR E IR PARA OUTRA ABA DO PAINEL
+        // CLICAR E IR PARA OUTRA ABA DO PAINEL
         painelgeral1.setSelectedIndex(0);
         txtidcargo.setText(tabelacargos.getValueAt(tabelacargos.getSelectedRow(), 0).toString());
         txtnomecargo.setText(tabelacargos.getValueAt(tabelacargos.getSelectedRow(), 1).toString());
